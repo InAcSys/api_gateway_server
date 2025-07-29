@@ -1,7 +1,7 @@
 import axios from "axios";
 import type { JWTPayload } from "../types/types";
 
-const AUTHENTICATION_URL = "http://manage-server:90/authentication/";
+const AUTHENTICATION_URL = "http://localhost:90/authentication/";
 
 export async function validateToken(token: string): Promise<JWTPayload> {
   try {

@@ -9,6 +9,7 @@ import {
   getSubjectsByTeacher,
 } from "../services/courses";
 import type { AcademicLevel, Subject } from "../types/course-types";
+import { getMySubjects } from "../services/lms";
 
 export const CourseRoute = new Elysia()
   .get("/subjects", async ({ query, headers }) => {
@@ -20,7 +21,7 @@ export const CourseRoute = new Elysia()
     if (isNaN(pageNumber)) throw new Error("pageNumber must be a number");
     if (isNaN(pageSize)) throw new Error("pageSize must be a number");
 
-    let subjects = [];
+    let subjects = {};
 
     if (token.roleId === 3 || token.roleId === 4) {
       subjects = await getSubjects(pageNumber, pageSize, token.tenantId);
@@ -34,6 +35,23 @@ export const CourseRoute = new Elysia()
         token.userId
       );
     }
+
+    if (token.roleId === 1) {
+      const result = await getMySubjects(token.tenantId, token.userId);
+      const subjectIds = result.data;
+      const items = await Promise.all(
+        subjectIds.map(async (subjectId: string) => {
+          return await getSubject(subjectId, token.tenantId);
+        })
+      );
+
+      subjects = {
+        data: {
+          items: items,
+        },
+      };
+    }
+
     return subjects;
   })
   .get("/subject/:id", async ({ headers, params }) => {

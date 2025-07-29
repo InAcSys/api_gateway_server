@@ -9,15 +9,15 @@ services:
     networks:
       - backend-net
 
-  api-gateway:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: api-gateway
-    ports:
-      - "3000:3000"
-    networks:
-      - backend-net
+  # api-gateway:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   container_name: api-gateway
+  #   ports:
+  #     - "3000:3000"
+  #   networks:
+  #     - backend-net
 
 networks:
   backend-net:

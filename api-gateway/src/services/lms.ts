@@ -1,7 +1,7 @@
 import axios from "axios";
 import type { AnnouncementRequest, Task } from "../types/lms-types";
 
-const LMS_SERVICE_URL = "http://manage-server:90/lms/";
+const LMS_SERVICE_URL = "http://localhost:90/lms/";
 
 export async function getTaskByCourse(subjectId: string, tenantId: string) {
   const response = await axios.get(
@@ -128,6 +128,38 @@ export async function submitTask(
         "Content-Type": "application/json",
       },
     }
+  );
+
+  return response.data;
+}
+
+export async function getMySubjects(tenantId: string, studentId: string) {
+  const response = await axios.get(
+    `${LMS_SERVICE_URL}subject-students/my-subjects?tenantId=${tenantId}&studentId=${studentId}`
+  );
+
+  return response.data;
+}
+
+export async function getStatusTask(
+  tenantId: string,
+  studentId: string,
+  taskId: string
+) {
+  const response = await axios.get(
+    `${LMS_SERVICE_URL}tasks/submitted/status/${taskId}?tenantId=${tenantId}&studentId=${studentId}`
+  );
+
+  return response.data;
+}
+
+export async function getSubmittedTaskByStudentId(
+  tenantId: string,
+  studentId: string,
+  taskId: string
+) {
+  const response = await axios.get(
+    `${LMS_SERVICE_URL}tasks/submitted/student/${studentId}?tenantId=${tenantId}&taskId=${taskId}`
   );
 
   return response.data;

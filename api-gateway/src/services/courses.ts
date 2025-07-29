@@ -1,7 +1,7 @@
 import axios from "axios";
 import type { AcademicLevel, Subject } from "../types/course-types";
 
-const COURSE_SERVICE_URL = "http://manage-server:90/courses";
+const COURSE_SERVICE_URL = "http://localhost:90/courses";
 
 export async function getSubjects(
   pageNumber: number,

@@ -1,7 +1,7 @@
 import axios from "axios";
 import type { CreateInstitute } from "../types/academic-types";
 
-const ACADEMIC_SERVICE_URL = "http://manage-server:90/academic/";
+const ACADEMIC_SERVICE_URL = "http://localhost:90/academic/";
 
 // INSTITUTE ENDPOINTS
 

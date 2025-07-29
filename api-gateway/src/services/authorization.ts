@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const AUTHORIZATION_SERVICE_URL = "http://manage-server:90/authorization/";
+const AUTHORIZATION_SERVICE_URL = "http://localhost:90/authorization/";
 
 export async function getPermissions(roleId: number, tenantId: string) {
   const response = await axios.get(

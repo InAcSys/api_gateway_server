@@ -5,7 +5,9 @@ import {
   createTask,
   enrollStudents,
   getAnnouncements,
+  getStatusTask,
   getStudents,
+  getSubmittedTaskByStudentId,
   getTask,
   getTaskByCourse,
   submitTask,
@@ -132,6 +134,31 @@ export const LMSRoute = new Elysia()
       taskId,
       token.userId,
       token.tenantId
+    );
+
+    return response;
+  })
+  .get("/task/status/:id", async ({ headers, params }) => {
+    const token = await getJWTToHeader(headers);
+    const taskId = params.id;
+
+    const response = await getStatusTask(token.tenantId, token.userId, taskId);
+
+    return response;
+  })
+  .get("/task/submitted/:taskId", async ({ headers, params, query }) => {
+    const token = await getJWTToHeader(headers);
+
+    const studentId =
+      token.roleId === 1 ? token.userId : query.studentId?.toString();
+    const taskId = params.taskId;
+
+    if (!studentId) throw new Error("Student id is required");
+
+    const response = await getSubmittedTaskByStudentId(
+      token.tenantId,
+      studentId,
+      taskId
     );
 
     return response;

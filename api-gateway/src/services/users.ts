@@ -2,7 +2,7 @@ import axios from "axios";
 import type { CreateUserDTO } from "../dtos/CreateUserDTO";
 import type { UserInfo } from "../types/user-types";
 
-const USER_SERVICE_URL = "http://manage-server:90/users/";
+const USER_SERVICE_URL = "http://localhost:90/users/";
 
 export async function getUsers(
   pageNumber: number,
@@ -24,7 +24,7 @@ export async function getUser(userId: string, tenantId: string) {
 
 export async function createUser(tenantId: string, user: CreateUserDTO) {
   const response = await axios.post(
-    `http://manage-server:90/users?tenantId=${tenantId}`,
+    `http://localhost:90/users?tenantId=${tenantId}`,
     user,
     {
       headers: {

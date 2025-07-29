@@ -13,7 +13,7 @@ import {
 const app = new Elysia()
   .use(
     cors({
-      origin: ["http://localhost:5173", "http://192.168.0.13:5173"],
+      origin: ["http://localhost:5173", "http://192.168.0.13:5173", "http://172.18.0.11:5173", "http://frontend:5173"],
     })
   )
   .get("/", () => {
